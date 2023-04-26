@@ -5,7 +5,7 @@ using SolarABC.Models;
 namespace SolarABC.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("/")]
 public class CollectorController : ControllerBase
 {
     private readonly ILogger<CollectorController> _logger;
