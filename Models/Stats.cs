@@ -64,6 +64,7 @@ namespace SolarABC.Models
                 * c.Length * sigma * (Math.Pow(coverTemp, 4) * Math.Pow(c.SkyTemp, 4)));
                 innerCoverTemp = coverTemp + ((qLoss1 * (Math.Log(c.OuterCoverDiameter / c.InnerCoverDiameter)))
                 / (2 * Math.PI * c.CoverThermalConductivity * c.Length));
+                recieverTemp = Math.Pow(Math.Abs(((1 / c.AbsorberEmmitance + ((1 - c.CoverEmmitance / c.CoverEmmitance) * (c.OuterRecieverDiameter / c.InnerCoverDiameter))) * qLoss1 / (Math.PI * c.OuterRecieverDiameter * c.Length * sigma)) + Math.Pow(coverTemp, 4)), 1 / 4);
                 qLoss2 = (Math.PI * c.OuterRecieverDiameter * c.Length * sigma * (Math.Pow(recieverTemp, 4)
                 - Math.Pow(innerCoverTemp, 4)));
                 maxIterations--;

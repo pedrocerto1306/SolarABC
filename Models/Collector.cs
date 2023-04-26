@@ -28,6 +28,7 @@ namespace SolarABC.Models
         public double OuterRecieverDiameter { get; set; }
         public double InnerCoverDiameter { get; set; }
         public double OuterCoverDiameter { get; set; }
+        public double Mi { get; set; }
         public double WindConvectiveCoefficient => getHw();
         public double RecieverArea => (double)((OuterRecieverDiameter * Math.PI) * Length); //Ar = PI D L
         public double ConcentratingRatio => (double)(ApertureArea / RecieverArea); //C = Aa/Ar
@@ -35,9 +36,10 @@ namespace SolarABC.Models
 
         public double getHw()
         {
-            double airDensity = 1.232, airDynamicViscosity = (1.794 * Math.Pow(10, -5)), airThermalConductivity = 0.025, reynolds, prandtl, nusselt;
-            reynolds = (4 * WindMassFlow) / (Math.PI * InnerRecieverDiameter * airDynamicViscosity);
-            prandtl = airDynamicViscosity * SpecificHeat / airThermalConductivity;
+            double airMi = (1.794 * Math.Pow(10, -5));
+            double airDensity = 1.232, airThermalConductivity = 0.025, reynolds, prandtl, nusselt;
+            reynolds = (4 * WindMassFlow) / (Math.PI * InnerRecieverDiameter * airMi);
+            prandtl = airMi * SpecificHeat / airThermalConductivity;
             nusselt = reynolds > 0.1 && reynolds < 1000 ? laminarNusseltCorrelation(reynolds) : turbulentNusseltCorrelation(reynolds, prandtl);
             return (nusselt * airThermalConductivity) / OuterCoverDiameter;
         }
@@ -52,7 +54,7 @@ namespace SolarABC.Models
             return 0.023 * Math.Pow(reynolds, 0.8) * Math.Pow(prandtl, 0.8);
         }
 
-        public PTC(double width, double length, double Gb, double Cp, double Tam, double Er, double Ec, double Kc, double mDotWind, double Dri, double Dro, double Dci, double Dco)
+        public PTC(double width, double length, double Gb, double Cp, double Mi, double Tam, double Er, double Ec, double Kc, double mDotWind, double Dri, double Dro, double Dci, double Dco)
         {
             this.Width = width;
             this.Length = length;
