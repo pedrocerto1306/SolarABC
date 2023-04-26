@@ -14,7 +14,10 @@ namespace SolarABC.Models
         public double FluidInTemp { get; set; }
         public double RecieverTemp { get; set; }
         public double AmbientTemp { get; set; }
-        public double SkyTemp { get; set; }
+        public double SkyTemp
+        {
+            get { return 0.0552 * (Math.Pow(AmbientTemp, 1.5)); }
+        }
         public double AbsorberEmmitance { get; set; }
         public double CoverEmmitance { get; set; }
         public double CoverThermalConductivity { get; set; }
@@ -53,6 +56,19 @@ namespace SolarABC.Models
         public double turbulentNusseltCorrelation(double reynolds)
         {
             return 0.30 * Math.Pow(reynolds, 0.6);
+        }
+
+        public double getKelvinTemp(double temp, TemperatureScale tScale)
+        {
+            switch (tScale)
+            {
+                case TemperatureScale.Celsius:
+                    return temp + 273.15;
+                case TemperatureScale.Fahrenheit:
+                    return Convert.ToDouble(((5 / 9) * temp - 32) + 273.15);
+                default:
+                    return double.NaN;
+            }
         }
     }
 }

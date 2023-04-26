@@ -34,17 +34,4 @@ public class CollectorController : ControllerBase
             return StatusCode(500, parabolicTC);
         }
     }
-
-    public double getKelvinTemp(double temp, TemperatureScale tScale)
-    {
-        switch (tScale)
-        {
-            case TemperatureScale.Celsius:
-                return temp + 273.15;
-            case TemperatureScale.Fahrenheit:
-                return Convert.ToDouble(((5 / 9) * temp - 32) + 273.15);
-            default:
-                return double.NaN;
-        }
-    }
 }

@@ -42,6 +42,7 @@ namespace SolarABC.Models
             double qLoss1 = (Math.PI * c.OuterCoverDiameter * c.Length * c.WindConvectiveCoefficient *
             (coverTemp - c.AmbientTemp)) + (c.CoverEmmitance * Math.PI * c.OuterCoverDiameter * c.Length * sigma
             * (Math.Pow(coverTemp, 4) * Math.Pow(c.SkyTemp, 4)));
+            //Trocar isso por temperatura do receptor
             double innerCoverTemp = coverTemp + ((qLoss1 * (Math.Log(c.OuterCoverDiameter / c.InnerCoverDiameter)))
                                     / (2 * Math.PI * c.CoverThermalConductivity * c.Length));
             double qLoss2 = (Math.PI * c.OuterRecieverDiameter * c.Length * sigma *
