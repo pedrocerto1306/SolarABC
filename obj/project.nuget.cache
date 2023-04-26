@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "O5qNu8AuiQiyJzHSXkFY1iUPPino+RuY+JfHfaZ8XmmYzzfa7cDOXffDg8rRkKtQOb2wiwAzQdgEyiDGoKHT2Q==",
+  "dgSpecHash": "mYQewMfHO7Vuga62bQ18hfXuYj9l6SySVQkE741Gp4xELefk4vcs5/Advi0x2Gr9FjTDZ4V7ZNw9lkgYy1/NNQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Pedro Certo\\Documents\\UFABC\\Engenharia Solar Térmica\\BackEnd\\SolarABC\\SolarABC.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Pedro Certo\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.0\\microsoft.aspnetcore.openapi.7.0.0.nupkg.sha512",
     "C:\\Users\\Pedro Certo\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
-    "C:\\Users\\Pedro Certo\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Pedro Certo\\.nuget\\packages\\microsoft.openapi\\1.4.3\\microsoft.openapi.1.4.3.nupkg.sha512",
     "C:\\Users\\Pedro Certo\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "C:\\Users\\Pedro Certo\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
     "C:\\Users\\Pedro Certo\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
