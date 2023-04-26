@@ -42,14 +42,16 @@ namespace SolarABC.Models
 
         public double getHw()
         {
-            double airDensity = 1.232, airDynamicViscosity = (1.794 * Math.Pow(10, -5)), airThermalConductivity = 0.025, reynolds, nusselt;
+            double airDensity = 1.232, airDynamicViscosity = (1.794 * Math.Pow(10, -5)), airThermalConductivity = 0.025, reynolds, prandtl, nusselt;
             reynolds = (airDensity * WindVelocity * OuterCoverDiameter) / airDynamicViscosity;
+            prandtl = airDynamicViscosity * SpecificHeat / airThermalConductivity;
             nusselt = reynolds > 0.1 && reynolds < 1000 ? laminarNusseltCorrelation(reynolds) : turbulentNusseltCorrelation(reynolds);
             return (nusselt * airThermalConductivity) / OuterCoverDiameter;
         }
 
         public double laminarNusseltCorrelation(double reynolds)
         {
+
             return 0.40 + (0.54 * Math.Pow(reynolds, 0.52));
         }
 
