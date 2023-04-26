@@ -36,15 +36,16 @@ namespace SolarABC.Models
         private double iteractiveProcess(PTC c)
         {
             int maxIterations = 30;
-            double qlossError = 3.00; //Acceptable variance between Qloss values (works as stop condition in the algorithm)
+            double qlossError = 0.001; //Acceptable variance between Qloss values (works as stop condition in the algorithm)
             double sigma = 5.67 * Math.Pow(10, -8); //Stefan-Boltzmann Constant
             double coverTemp = (new Random().NextDouble() * c.AmbientTemp) + c.AmbientTemp;
             double qLoss1 = (Math.PI * c.OuterCoverDiameter * c.Length * c.WindConvectiveCoefficient *
             (coverTemp - c.AmbientTemp)) + (c.CoverEmmitance * Math.PI * c.OuterCoverDiameter * c.Length * sigma
             * (Math.Pow(coverTemp, 4) * Math.Pow(c.SkyTemp, 4)));
-            //Trocar isso por temperatura do receptor
             double innerCoverTemp = coverTemp + ((qLoss1 * (Math.Log(c.OuterCoverDiameter / c.InnerCoverDiameter)))
                                     / (2 * Math.PI * c.CoverThermalConductivity * c.Length));
+            //Calcular temperatura do receptor
+
             double qLoss2 = (Math.PI * c.OuterRecieverDiameter * c.Length * sigma *
             (Math.Pow(c.RecieverTemp, 4) - Math.Pow(innerCoverTemp, 4))) /
             ((1 / c.AbsorberEmmitance) + (((1 - c.CoverEmmitance) / c.CoverEmmitance) *
