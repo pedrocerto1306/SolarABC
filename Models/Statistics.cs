@@ -1,40 +1,22 @@
-
 namespace SolarABC.Models
 {
-    public class Stats
+    public class Statistics
     {
-        public double TotalLossCoefficient { get; set; }     //Ul
-        public double EfficiencyFactor { get; set; }         //F'
-        public double FlowFactor { get; set; }               //F"
-        public double HeatRemovalFactor { get; set; }        //Fr
+        public double TotalLossCoefficient { get; set; }
+        public double Qu { get; set; }
         public double ThermalEfficiency { get; set; }
+        public double Tout { get; set; }
 
-        public Stats(PTC collector, double[] h)
+        public Statistics(PTC coll, EntryData et)
         {
-            this.TotalLossCoefficient = iteractiveProcess(collector);
-            this.EfficiencyFactor = 1 / (h[0] + h[1] + h[2] + h[3]);
+            double[] results = iteractiveProcess(coll);
+            this.TotalLossCoefficient = results[0];
+            this.Qu = (coll.AvailableSolarIrradiation * 0.80) - results[1];
+            this.ThermalEfficiency = (this.Qu) / coll.AvailableSolarIrradiation;
+            this.Tout = (this.Qu / (et.m * et.Cp)) + coll.FluidInTemp;
         }
 
-        ///<summary>
-        ///Statistics constructor instantiates an Stats object that contains the main values in the Thermal Analysis object of this project
-        ///</summary>
-        ///<param name="collector">The collector which the user wants to obtain the values</param>
-        ///<param name="h">double array containing the h values of the Rankine Cycle</param>
-        public Stats(PTC collector, double[] h, double? fluidFlowRate, double? fluidSpecificHeat)
-        {
-            this.TotalLossCoefficient = iteractiveProcess(collector);
-            this.EfficiencyFactor = 1 / (h[0] + h[1] + h[2] + h[3]);
-            if (fluidFlowRate != null && fluidSpecificHeat != null)
-            {
-                this.HeatRemovalFactor = ((double)fluidFlowRate * (double)fluidSpecificHeat) / ((Math.PI * collector.OuterRecieverDiameter * collector.Length) * this.TotalLossCoefficient * this.EfficiencyFactor);
-                this.FlowFactor = this.HeatRemovalFactor / this.EfficiencyFactor;
-            }
-        }
-
-        ///<summary>
-        ///Estimates the temperature of the reciever and adjust the error of the Qloss equations on each iteraction till it finds an acceptable error
-        ///</summary>
-        private double iteractiveProcess(PTC c)
+        private double[] iteractiveProcess(PTC c)
         {
             int maxIterations = 500;
             double qlossError = 0.001; //Acceptable variance between Qloss values (works as stop condition in the algorithm)
@@ -69,7 +51,9 @@ namespace SolarABC.Models
                 maxIterations--;
             }
 
-            return (qLoss2 / (Math.PI * c.OuterRecieverDiameter * c.Length * (recieverTemp - c.AmbientTemp)));
+            double[] results = { (qLoss2 / (Math.PI * c.OuterRecieverDiameter * c.Length * (recieverTemp - c.AmbientTemp))), qLoss1 };
+
+            return results;
         }
     }
 }
